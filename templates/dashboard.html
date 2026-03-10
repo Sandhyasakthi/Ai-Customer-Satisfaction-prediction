@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Dashboard</title>
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body class="dashboard-body">
+
+<div class="navbar">
+
+<div class="nav-left">
+<h2>Tata Steel AI Platform</h2>
+<span>Customer Intelligence</span>
+</div>
+
+<div class="nav-right">
+<span class="user-name">Welcome {{ session['user'] }}</span>
+<a href="/logout" class="logout-btn">Logout</a>
+</div>
+
+</div>
+
+
+<div class="main">
+
+<h1>Dashboard Overview</h1>
+<p class="subtitle">AI Customer Intelligence System</p>
+
+
+<div class="cards">
+
+<div class="card">
+<h3>Prediction Engine</h3>
+<a href="/predict">
+<button class="card-btn">Go Prediction</button>
+</a>
+</div>
+
+<div class="card">
+<h3>Feedback System</h3>
+<a href="/feedback">
+<button class="card-btn">Give Feedback</button>
+</a>
+</div>
+
+<div class="card">
+<h3>Reports</h3>
+<a href="/reports">
+<button class="card-btn">View Reports</button>
+</a>
+</div>
+
+</div>
+
+</div>
+
+</body>
+</html>

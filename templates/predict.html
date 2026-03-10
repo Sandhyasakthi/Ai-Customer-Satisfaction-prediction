@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Prediction</title>
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body class="dashboard-body">
+
+<div class="navbar">
+<h2>Prediction Engine</h2>
+
+<div>
+<a href="/dashboard" class="logout-btn">Dashboard</a>
+<a href="/logout" class="logout-btn">Logout</a>
+</div>
+</div>
+
+
+<div class="feedback-card">
+
+<h1>Customer Satisfaction Prediction</h1>
+<p class="subtitle">Enter customer service details</p>
+
+<form method="POST">
+
+<label>Service Rating (1-5)</label>
+<input type="number" name="service" min="1" max="5" required>
+
+<label>Product Quality Rating (1-5)</label>
+<input type="number" name="product" min="1" max="5" required>
+
+<label>Delivery Rating (1-5)</label>
+<input type="number" name="delivery" min="1" max="5" required>
+
+<label>Support Rating (1-5)</label>
+<input type="number" name="support" min="1" max="5" required>
+
+<br>
+
+<button class="btn">Predict Satisfaction</button>
+
+</form>
+
+{% if prediction %}
+<h3 style="margin-top:20px;color:#0ea5a4">
+Prediction Result : {{ prediction }}
+</h3>
+{% endif %}
+
+</div>
+
+</body>
+</html>

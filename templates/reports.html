@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Reports Analytics</title>
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body class="dashboard-body">
+
+<!-- Navbar -->
+<div class="navbar">
+
+<div>
+<h2>Analytics Reports</h2>
+<span style="font-size:13px;color:#64748b">
+Customer Intelligence Report Center
+</span>
+</div>
+
+<div>
+<a href="/dashboard" class="logout-btn">Dashboard</a>
+<a href="/logout" class="logout-btn">Logout</a>
+</div>
+
+</div>
+
+
+<!-- Main Report Section -->
+<div class="report-container">
+
+<h1>Business Intelligence Reports</h1>
+<p class="subtitle">
+AI Customer Satisfaction Analytics Summary
+</p>
+
+
+<!-- Analytics Summary Cards -->
+<div class="analytics-grid">
+
+<div class="analytics-card">
+<h2>{{ predictions|length }}</h2>
+<p>Total Predictions</p>
+</div>
+
+<div class="analytics-card">
+<h2>{{ feedbacks|length }}</h2>
+<p>Total Feedbacks</p>
+</div>
+
+<div class="analytics-card">
+<h2>91%</h2>
+<p>Average Satisfaction Score</p>
+</div>
+
+</div>
+
+
+<!-- Prediction History -->
+<div class="report-card">
+
+<h2>Prediction History</h2>
+
+<table class="report-table">
+
+<tr>
+<th>User</th>
+<th>Service</th>
+<th>Product</th>
+<th>Delivery</th>
+<th>Support</th>
+<th>Result</th>
+</tr>
+
+{% for p in predictions %}
+
+<tr>
+<td>{{session['user']}}</td>
+<td>{{p.service}}</td>
+<td>{{p.product}}</td>
+<td>{{p.delivery}}</td>
+<td>{{p.support}}</td>
+<td class="success">{{p.prediction}}</td>
+</tr>
+
+{% endfor %}
+
+</table>
+
+</div>
+
+
+<!-- Feedback History -->
+<div class="report-card">
+
+<h2>Feedback History</h2>
+
+<table class="report-table">
+
+<tr>
+<th>User</th>
+<th>Rating</th>
+<th>Comments</th>
+</tr>
+
+{% for f in feedbacks %}
+
+<tr>
+<td>{{f.user}}</td>
+<td>{{f.rating}}</td>
+<td>{{f.comments}}</td>
+</tr>
+
+{% endfor %}
+
+</table>
+
+</div>
+
+</div>
+
+</body>
+</html>

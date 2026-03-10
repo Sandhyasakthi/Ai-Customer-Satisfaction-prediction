@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Feedback</title>
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body class="dashboard-body">
+
+<div class="navbar">
+<h2>Customer Feedback</h2>
+
+<div>
+<a href="/dashboard" class="logout-btn">Dashboard</a>
+<a href="/logout" class="logout-btn">Logout</a>
+</div>
+</div>
+
+
+<div class="feedback-card">
+
+<h1>Submit Feedback</h1>
+
+<form method="POST">
+
+<label>Rating</label>
+<input type="number" name="rating" min="1" max="5" required>
+
+<label>Comments</label>
+<input type="text" name="comments" required>
+
+<button class="btn">Submit</button>
+
+</form>
+
+</div>
+
+</body>
+</html>
