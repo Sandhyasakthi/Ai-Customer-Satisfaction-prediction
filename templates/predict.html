@@ -1,54 +1,82 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-<title>Prediction</title>
-<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tata AI - Prediction Engine</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
+<body>
 
-<body class="dashboard-body">
+    <nav class="navbar">
+        <a href="/dashboard" class="brand">
+            <div class="brand-icon">T</div>
+            <div class="brand-text">
+                <h2>Tata Steel AI</h2>
+                <span>Prediction Engine</span>
+            </div>
+        </a>
+        <div class="nav-links">
+            <a href="/dashboard" class="nav-link">Dashboard</a>
+            <a href="/logout" class="btn btn-secondary">Sign Out</a>
+        </div>
+    </nav>
 
-<div class="navbar">
-<h2>Prediction Engine</h2>
+    <div class="container">
+        <div class="page-header">
+            <h1>Customer Satisfaction Predictor</h1>
+            <p class="subtitle">Adjust the metrics below to simulate customer satisfaction using our CatBoost model.</p>
+        </div>
 
-<div>
-<a href="/dashboard" class="logout-btn">Dashboard</a>
-<a href="/logout" class="logout-btn">Logout</a>
-</div>
-</div>
+        <div class="widget-card glass-panel">
+            <form method="POST">
+                
+                <div class="predict-row">
+                    <div class="input-group" style="margin-bottom: 0;">
+                        <label>Service Rating (1-5)</label>
+                        <input type="number" name="service" min="1" max="5" placeholder="1-5" required>
+                    </div>
 
+                    <div class="input-group" style="margin-bottom: 0;">
+                        <label>Product Quality (1-5)</label>
+                        <input type="number" name="product" min="1" max="5" placeholder="1-5" required>
+                    </div>
+                </div>
 
-<div class="feedback-card">
+                <div class="predict-row">
+                    <div class="input-group" style="margin-bottom: 0;">
+                        <label>Delivery Speed (1-5)</label>
+                        <input type="number" name="delivery" min="1" max="5" placeholder="1-5" required>
+                    </div>
 
-<h1>Customer Satisfaction Prediction</h1>
-<p class="subtitle">Enter customer service details</p>
+                    <div class="input-group" style="margin-bottom: 0;">
+                        <label>Customer Support (1-5)</label>
+                        <input type="number" name="support" min="1" max="5" placeholder="1-5" required>
+                    </div>
+                </div>
 
-<form method="POST">
+                <div class="predict-row">
+                    <div class="input-group" style="margin-bottom: 0;">
+                        <label>Pricing & Value (1-5)</label>
+                        <input type="number" name="price" min="1" max="5" placeholder="1-5" required>
+                    </div>
+                </div>
 
-<label>Service Rating (1-5)</label>
-<input type="number" name="service" min="1" max="5" required>
+                <div class="text-center mt-4">
+                    <button type="submit" class="btn w-full">Generate AI Prediction</button>
+                </div>
 
-<label>Product Quality Rating (1-5)</label>
-<input type="number" name="product" min="1" max="5" required>
+            </form>
 
-<label>Delivery Rating (1-5)</label>
-<input type="number" name="delivery" min="1" max="5" required>
+            {% if prediction %}
+            <div class="result-box {% if prediction == 'Not Satisfied' %}negative{% endif %}">
+                <div class="result-title">Predicted Outcome</div>
+                <div class="result-value">{{ prediction }}</div>
+            </div>
+            {% endif %}
 
-<label>Support Rating (1-5)</label>
-<input type="number" name="support" min="1" max="5" required>
-
-<br>
-
-<button class="btn">Predict Satisfaction</button>
-
-</form>
-
-{% if prediction %}
-<h3 style="margin-top:20px;color:#0ea5a4">
-Prediction Result : {{ prediction }}
-</h3>
-{% endif %}
-
-</div>
+        </div>
+    </div>
 
 </body>
-</html>
+</html>

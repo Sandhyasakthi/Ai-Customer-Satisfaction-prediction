@@ -1,122 +1,115 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-<title>Reports Analytics</title>
-<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tata AI - Intelligence Reports</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
+<body>
 
-<body class="dashboard-body">
+    <nav class="navbar">
+        <a href="/dashboard" class="brand">
+            <div class="brand-icon">T</div>
+            <div class="brand-text">
+                <h2>Tata Steel AI</h2>
+                <span>Intelligence Reports</span>
+            </div>
+        </a>
+        <div class="nav-links">
+            <a href="/dashboard" class="nav-link">Dashboard</a>
+            <a href="/logout" class="btn btn-secondary">Sign Out</a>
+        </div>
+    </nav>
 
-<!-- Navbar -->
-<div class="navbar">
+    <div class="container" style="max-width: 1200px;">
+        <div class="page-header">
+            <h1>Business Intelligence</h1>
+            <p class="subtitle">AI Customer Satisfaction Analytics & Historical Data</p>
+        </div>
 
-<div>
-<h2>Analytics Reports</h2>
-<span style="font-size:13px;color:#64748b">
-Customer Intelligence Report Center
-</span>
-</div>
+        <div class="stats-grid">
+            <div class="stat-card glass-panel">
+                <div class="stat-value">{{ predictions|length }}</div>
+                <div class="stat-label">Total Predictions</div>
+            </div>
+            <div class="stat-card glass-panel">
+                <div class="stat-value">{{ feedbacks|length }}</div>
+                <div class="stat-label">Total Feedback</div>
+            </div>
+            <div class="stat-card glass-panel">
+                <div class="stat-value">91%</div>
+                <div class="stat-label">Avg. Satisfaction</div>
+            </div>
+        </div>
 
-<div>
-<a href="/dashboard" class="logout-btn">Dashboard</a>
-<a href="/logout" class="logout-btn">Logout</a>
-</div>
+        <h2 class="mt-4 mb-2">Prediction History</h2>
+        <div class="table-container mb-2">
+            <table>
+                <thead>
+                    <tr>
+                        <th>User</th>
+                        <th>Service</th>
+                        <th>Product</th>
+                        <th>Delivery</th>
+                        <th>Support</th>
+                        <th>AI Prediction</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for p in predictions %}
+                    <tr>
+                        <td style="font-weight: 500;">{{ session['user'] }}</td>
+                        <td>{{ p.service }}/5</td>
+                        <td>{{ p.product }}/5</td>
+                        <td>{{ p.delivery }}/5</td>
+                        <td>{{ p.support }}/5</td>
+                        <td>
+                            {% if p.prediction == 'Satisfied' %}
+                            <span class="badge badge-success">{{ p.prediction }}</span>
+                            {% else %}
+                            <span class="badge badge-danger">{{ p.prediction }}</span>
+                            {% endif %}
+                        </td>
+                    </tr>
+                    {% else %}
+                    <tr>
+                        <td colspan="6" class="text-center" style="color:var(--text-secondary); padding: 2rem;">No predictions found.</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
 
-</div>
+        <h2 class="mt-4 mb-2">Feedback History</h2>
+        <div class="table-container">
+            <table>
+                <thead>
+                    <tr>
+                        <th>User</th>
+                        <th>Rating</th>
+                        <th>Comments</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for f in feedbacks %}
+                    <tr>
+                        <td style="font-weight: 500;">{{ f.user }}</td>
+                        <td>
+                            <span class="badge badge-neutral">{{ f.rating }} / 5</span>
+                        </td>
+                        <td style="color:var(--text-secondary);">{{ f.comments }}</td>
+                    </tr>
+                    {% else %}
+                    <tr>
+                        <td colspan="3" class="text-center" style="color:var(--text-secondary); padding: 2rem;">No feedback found.</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
 
-
-<!-- Main Report Section -->
-<div class="report-container">
-
-<h1>Business Intelligence Reports</h1>
-<p class="subtitle">
-AI Customer Satisfaction Analytics Summary
-</p>
-
-
-<!-- Analytics Summary Cards -->
-<div class="analytics-grid">
-
-<div class="analytics-card">
-<h2>{{ predictions|length }}</h2>
-<p>Total Predictions</p>
-</div>
-
-<div class="analytics-card">
-<h2>{{ feedbacks|length }}</h2>
-<p>Total Feedbacks</p>
-</div>
-
-<div class="analytics-card">
-<h2>91%</h2>
-<p>Average Satisfaction Score</p>
-</div>
-
-</div>
-
-
-<!-- Prediction History -->
-<div class="report-card">
-
-<h2>Prediction History</h2>
-
-<table class="report-table">
-
-<tr>
-<th>User</th>
-<th>Service</th>
-<th>Product</th>
-<th>Delivery</th>
-<th>Support</th>
-<th>Result</th>
-</tr>
-
-{% for p in predictions %}
-
-<tr>
-<td>{{session['user']}}</td>
-<td>{{p.service}}</td>
-<td>{{p.product}}</td>
-<td>{{p.delivery}}</td>
-<td>{{p.support}}</td>
-<td class="success">{{p.prediction}}</td>
-</tr>
-
-{% endfor %}
-
-</table>
-
-</div>
-
-
-<!-- Feedback History -->
-<div class="report-card">
-
-<h2>Feedback History</h2>
-
-<table class="report-table">
-
-<tr>
-<th>User</th>
-<th>Rating</th>
-<th>Comments</th>
-</tr>
-
-{% for f in feedbacks %}
-
-<tr>
-<td>{{f.user}}</td>
-<td>{{f.rating}}</td>
-<td>{{f.comments}}</td>
-</tr>
-
-{% endfor %}
-
-</table>
-
-</div>
-
-</div>
+    </div>
 
 </body>
-</html>
+</html>

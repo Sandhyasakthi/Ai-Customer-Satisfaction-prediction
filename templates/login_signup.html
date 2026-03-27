@@ -1,80 +1,94 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-<title>Login</title>
-<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tata AI - Login & Signup</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
-
 <body class="login-body">
 
-<div class="container">
+    <div class="login-container glass-panel">
+        
+        <div class="login-left">
+            <h1 id="title">Welcome Back</h1>
+            <p id="subtitle" class="subtitle">Enter your details to access your dashboard.</p>
+            
+            <div class="auth-tabs">
+                <div class="auth-tab active" id="tab-login" onclick="setMode('login')">Login</div>
+                <div class="auth-tab" id="tab-signup" onclick="setMode('signup')">Sign Up</div>
+            </div>
 
-<div class="left-panel">
+            <form method="POST" id="auth-form">
+                
+                <div class="input-group" id="name-group" style="display:none;">
+                    <label>Full Name</label>
+                    <input type="text" name="name" id="name-field" placeholder="John Doe">
+                </div>
 
-<h2 id="title">Welcome Back</h2>
-<p id="subtitle">Login to continue</p>
+                <div class="input-group">
+                    <label>Email Address</label>
+                    <input type="email" name="email" placeholder="john@tatasteel.com" required>
+                </div>
 
-<form method="POST" id="auth-form">
+                <div class="input-group">
+                    <label>Password</label>
+                    <input type="password" name="password" placeholder="••••••••" required>
+                </div>
 
-<input type="text" name="name" id="name-field"
-placeholder="Name" style="display:none">
+                <button class="btn w-full mt-2" id="submit-btn" type="submit">Log In to Dashboard</button>
+            </form>
 
-<input type="email" name="email" placeholder="Email" required>
+            <div style="margin-top: 20px;">
+                {% if error %}
+                <p class="text-danger">⚠️ {{ error }}</p>
+                {% endif %}
+            </div>
+        </div>
 
-<input type="password" name="password" placeholder="Password" required>
+        <div class="login-right">
+            <h2>AI-Driven Customer Satisfaction</h2>
+            <p>Predict, Analyze, and Enhance customer experiences with our advanced CatBoost modeling platform built for Tata Steel.</p>
+        </div>
 
-<button class="btn" id="submit-btn">Login</button>
+    </div>
 
-</form>
-
-{% if error %}
-<p style="color:red">{{ error }}</p>
-{% endif %}
-
-</div>
-
-
-<div class="right-panel">
-
-<h2>New User?</h2>
-<p>Create account to access platform</p>
-
-<button class="btn-outline" onclick="toggleForm()">
-Switch Mode
-</button>
-
-</div>
-
-</div>
-
-<script>
-
-let login = true;
-
-function toggleForm(){
-
-let nameField = document.getElementById("name-field");
-let title = document.getElementById("title");
-let subtitle = document.getElementById("subtitle");
-let btn = document.getElementById("submit-btn");
-
-if(login){
-nameField.style.display="block";
-title.innerText="Create Account";
-subtitle.innerText="Signup to continue";
-btn.innerText="Signup";
-}
-else{
-nameField.style.display="none";
-title.innerText="Welcome Back";
-subtitle.innerText="Login to continue";
-btn.innerText="Login";
-}
-
-login = !login;
-}
-
-</script>
-
+    <script>
+        let mode = 'login';
+        
+        function setMode(newMode) {
+            mode = newMode;
+            
+            const nameGroup = document.getElementById("name-group");
+            const nameField = document.getElementById("name-field");
+            const title = document.getElementById("title");
+            const subtitle = document.getElementById("subtitle");
+            const btn = document.getElementById("submit-btn");
+            
+            const tabLogin = document.getElementById("tab-login");
+            const tabSignup = document.getElementById("tab-signup");
+            
+            if (mode === 'signup') {
+                nameGroup.style.display = "block";
+                nameField.required = true;
+                title.innerText = "Create Account";
+                subtitle.innerText = "Sign up to start predicting satisfaction.";
+                btn.innerText = "Create Account";
+                
+                tabSignup.classList.add("active");
+                tabLogin.classList.remove("active");
+            } else {
+                nameGroup.style.display = "none";
+                nameField.required = false;
+                nameField.value = "";
+                title.innerText = "Welcome Back";
+                subtitle.innerText = "Enter your details to access your dashboard.";
+                btn.innerText = "Log In to Dashboard";
+                
+                tabLogin.classList.add("active");
+                tabSignup.classList.remove("active");
+            }
+        }
+    </script>
 </body>
-</html>
+</html>

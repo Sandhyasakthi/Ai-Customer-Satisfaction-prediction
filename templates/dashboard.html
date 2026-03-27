@@ -1,59 +1,59 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-<title>Dashboard</title>
-<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tata AI - Dashboard</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
+<body>
 
-<body class="dashboard-body">
+    <nav class="navbar">
+        <a href="/dashboard" class="brand">
+            <div class="brand-icon">T</div>
+            <div class="brand-text">
+                <h2>Tata Steel AI</h2>
+                <span>Prediction Platform</span>
+            </div>
+        </a>
+        <div class="nav-links">
+            <span class="nav-link" style="color:white; font-weight:700;">Hi, {{ session['user'] }}</span>
+            <a href="/dashboard" class="nav-link active">Dashboard</a>
+            <a href="/logout" class="btn btn-secondary">Sign Out</a>
+        </div>
+    </nav>
 
-<div class="navbar">
+    <div class="container">
+        <div class="page-header">
+            <h1>Platform Overview</h1>
+            <p class="subtitle">Welcome to your AI Customer Intelligence Workspace.</p>
+        </div>
 
-<div class="nav-left">
-<h2>Tata Steel AI Platform Prediction</h2>
-<span>Customer Intelligence</span>
-</div>
+        <div class="grid-container">
+            
+            <div class="feature-card glass-panel">
+                <div class="feature-icon">🤖</div>
+                <h3>Prediction Engine</h3>
+                <p>Run advanced CatBoost models to predict whether a customer will be satisfied based on key service metrics and pricing data.</p>
+                <a href="/predict" class="btn w-full">Run Prediction Engine</a>
+            </div>
 
-<div class="nav-right">
-<span class="user-name">Welcome {{ session['user'] }}</span>
-<a href="/logout" class="logout-btn">Logout</a>
-</div>
+            <div class="feature-card glass-panel">
+                <div class="feature-icon">💬</div>
+                <h3>Feedback System</h3>
+                <p>Submit direct customer feedback regarding our latest service and product quality. Train the system for continuous accuracy.</p>
+                <a href="/feedback" class="btn w-full">Give Feedback</a>
+            </div>
 
-</div>
+            <div class="feature-card glass-panel">
+                <div class="feature-icon">📊</div>
+                <h3>Intelligence Reports</h3>
+                <p>Analyze past predictions, view feedback history, and monitor your overall performance trends on a unified dashboard.</p>
+                <a href="/reports" class="btn w-full">View Reports</a>
+            </div>
 
-
-<div class="main">
-
-<h1>Dashboard Overview</h1>
-<p class="subtitle">AI Customer Intelligence System</p>
-
-
-<div class="cards">
-
-<div class="card">
-<h3>Prediction Engine</h3>
-<a href="/predict">
-<button class="card-btn">Go Prediction</button>
-</a>
-</div>
-
-<div class="card">
-<h3>Feedback System</h3>
-<a href="/feedback">
-<button class="card-btn">Give Feedback</button>
-</a>
-</div>
-
-<div class="card">
-<h3>Reports</h3>
-<a href="/reports">
-<button class="card-btn">View Reports</button>
-</a>
-</div>
-
-</div>
-
-</div>
+        </div>
+    </div>
 
 </body>
 </html>
