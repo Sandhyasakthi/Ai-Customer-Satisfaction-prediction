@@ -13,12 +13,13 @@ MONGO_URI = os.environ.get("MONGO_URI", "mongodb://localhost:27017/")
 client = MongoClient(MONGO_URI, serverSelectionTimeoutMS=5000)
 
 try:
+    # Verify connection
     client.server_info()
+    print("✅ Connected to MongoDB successfully.")
 except errors.ServerSelectionTimeoutError as exc:
-    raise SystemExit(
-        f"MongoDB connection failed: {exc}\n"
-        "Start MongoDB locally or set MONGO_URI before running this app."
-    )
+    print(f"⚠️ Warning: MongoDB connection delayed or failed: {exc}")
+    # We don't exit here to allow the app to start on platforms like Render
+    # where the MONGO_URI might be configured after the first deployment.
 
 db = client["tata_steel_ai"]
 users_collection = db["users"]
