@@ -2,228 +2,116 @@
 
 ## Project Overview
 
-The **AI-Driven Customer Satisfaction Prediction System** is a machine learning-based web application that predicts customer satisfaction based on service-related inputs. The system uses a trained **CatBoost machine learning model** integrated with a **Flask web application** to generate predictions in real time.
+The **AI-Driven Customer Satisfaction Prediction System** is a high-performance machine learning web application built for **Tata Steel**. It predicts customer satisfaction based on service-related inputs using a **CatBoost classifier**. The system features a modern, professional UI with real-time predictions and persistent storage using **MongoDB**.
 
-Users can log in to the system, provide feedback or service ratings, and receive predictions about customer satisfaction. The system also stores the data for reporting and analysis.
+Users can register, log in, submit service ratings, and view historical prediction reports and feedback.
 
 ---
 
-## Technologies Used
+## 🚀 Key Features
+
+*   **Real-time Prediction**: Leveraging a pre-trained CatBoost model for instant results.
+*   **Professional UI**: Pastel-themed, responsive design with interactive animations.
+*   **Secure Authentication**: User signup and login system with MongoDB integration.
+*   **Data Persistence**: All predictions and customer feedback are stored for reporting.
+*   **Training Pipeline**: Integrated scripts for downloading Kaggle datasets and retraining models.
+
+---
+
+## 🛠️ Technologies Used
 
 ### Frontend
-
-* HTML
-* CSS
+- **HTML5 & Semantic Elements**
+- **Modern CSS**: Custom pastel palette, glassmorphism, and responsive layouts.
+- **Micro-animations**: Enhanced user engagement via hover effects and transitions.
 
 ### Backend
-
-* Python
-* Flask Framework
+- **Python 3.10+**
+- **Flask Framework**: Handling routing, sessions, and API endpoints.
 
 ### Machine Learning
-
-* CatBoost Classifier
+- **CatBoost Classifier**: Optimized for tabular data and high accuracy.
+- **Scikit-learn**: Used for data preprocessing (SMOTE) and evaluation.
+- **Pandas**: Data manipulation and feature mapping.
 
 ### Database
-
-* SQLite Database
-
-### Tools
-
-* Git
-* GitHub
-* VS Code
+- **MongoDB**: NoSQL storage for users, predictions, and feedback.
 
 ---
 
-## Project Structure
+## 📂 Project Structure
 
-```
-tata_steel_ai_project
+```text
+Ai-Customer-Satisfaction-prediction/
 │
-├── catboost_info/
+├── model/                     # Machine Learning components
+│   └── catboost_model.cbm     # The active trained model
 │
-├── model/
-│   ├── catboost_model.cbm
-│   └── train_model.py
+├── static/                    # Static assets
+│   └── style.css              # Custom professional styling
 │
-├── static/
-│   └── style.css
-│
-├── templates/
-│   ├── dashboard.html
-│   ├── feedback.html
+├── templates/                 # HTML templates (Flask/Jinja2)
 │   ├── login_signup.html
+│   ├── dashboard.html
 │   ├── predict.html
+│   ├── feedback.html
 │   └── reports.html
 │
-├── app.py
-├── catboost_model.cbm
-├── create_db.py
-└── database.db
+├── app.py                    # Main Flask application entry point
+├── create_db.py              # Script to initialize MongoDB collections
+├── download_and_train.py     # Pipeline to fetch Kaggle data & train model
+├── requirements.txt           # Project dependencies
+├── run_pipeline.bat          # Automation for retraining
+└── push.bat                  # Deployment shortcut
 ```
 
 ---
 
-## Folder Explanation
+## ⚙️ Installation & Setup
 
-### model/
+### 1. Prerequisites
+- **Python 3.10+**
+- **MongoDB** (Local server running on port 27017 or a remote URI)
 
-Contains machine learning components.
-
-* **train_model.py**
-  Used to train the CatBoost machine learning model.
-
-* **catboost_model.cbm**
-  The trained model used for prediction.
-
----
-
-### static/
-
-Contains static frontend files.
-
-* **style.css**
-  Defines the styling and layout for the web application.
-
----
-
-### templates/
-
-Contains HTML pages used by the Flask application.
-
-* **login_signup.html** – User login and registration page
-* **dashboard.html** – Main dashboard after login
-* **predict.html** – Page where users input service parameters for prediction
-* **feedback.html** – Used to collect customer feedback
-* **reports.html** – Displays stored reports or prediction results
-
----
-
-### app.py
-
-The main Flask application file.
-
-Responsibilities include:
-
-* Running the Flask server
-* Managing routes and navigation
-* Loading the machine learning model
-* Handling prediction requests
-* Connecting to the database
-
----
-
-### create_db.py
-
-This script initializes and creates the SQLite database required for the application.
-
----
-
-### database.db
-
-The SQLite database file that stores:
-
-* User information
-* Feedback data
-* Prediction results
-
----
-
-### catboost_info/
-
-Automatically generated during model training and contains training logs and metrics.
-
----
-
-## Machine Learning Model
-
-The system uses the **CatBoost classification algorithm** to predict customer satisfaction.
-
-### Input Features
-
-Example parameters used for prediction:
-
-* Service Quality
-* Product Satisfaction
-* Delivery Experience
-* Customer Support Rating
-
-### Output
-
-The model predicts whether the customer is:
-
-* **Satisfied**
-* **Not Satisfied**
-
----
-
-## Application Workflow
-
-1. User opens the web application.
-2. User registers or logs into the system.
-3. User accesses the dashboard.
-4. User enters service-related parameters.
-5. The Flask backend sends input data to the trained CatBoost model.
-6. The model predicts customer satisfaction.
-7. The result is displayed on the webpage.
-8. Data is stored in the SQLite database for reports.
-
----
-
-## Installation and Setup
-
-### 1. Clone the Repository
-
-```
-git clone https://github.com/your-username/tata_steel_ai_project.git
-```
-
-### 2. Navigate to Project Directory
-
-```
-cd tata_steel_ai_project
+### 2. Clone the Repository
+```bash
+git clone https://github.com/Sandhyasakthi/Ai-Customer-Satisfaction-prediction.git
+cd Ai-Customer-Satisfaction-prediction
 ```
 
 ### 3. Install Dependencies
-
+```bash
+pip install -r requirements.txt
 ```
-pip install flask catboost pandas scikit-learn
-```
 
-### 4. Create Database
-
-```
+### 4. Initialize Database
+Ensure MongoDB is running, then run:
+```bash
 python create_db.py
 ```
 
 ### 5. Run the Application
-
-```
+```bash
 python app.py
 ```
-
-### 6. Open in Browser
-
-```
-http://127.0.0.1:5000
-```
+Open your browser and navigate to `http://127.0.0.1:5000`.
 
 ---
 
-## Future Improvements
-
-* Add data visualization dashboards
-* Improve model accuracy with larger datasets
-* Implement user role management
-* Deploy the application on a cloud platform
-* Add advanced analytics for customer insights
+## 📊 Training the Model
+To retrain the model with fresh data from the Kaggle dataset mirror:
+1. Run the instruction pipeline:
+   ```bash
+   run_pipeline.bat
+   ```
+2. This will:
+   - Download the latest dataset.
+   - Apply SMOTE to balance classes.
+   - Train a new CatBoost model.
+   - Save it to `model/catboost_model.cbm`.
 
 ---
 
-## Author
-
-Sandhya S
-
-AI and Machine Learning Academic Project
-
+## 📝 Author
+**Sandhya S**
+*AI and Machine Learning Academic Project*
