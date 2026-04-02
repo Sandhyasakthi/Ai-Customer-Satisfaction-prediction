@@ -5,7 +5,8 @@ from catboost import CatBoostClassifier
 
 # Custom .env loader to avoid dependency issues for your review
 def load_env():
-    env_file = ".env"
+    # Attempt to load from .env first, fallback to .env.example if preferred by user
+    env_file = ".env" if os.path.exists(".env") and os.path.getsize(".env") > 0 else ".env.example"
     if os.path.exists(env_file):
         with open(env_file, "r") as f:
             for line in f:
@@ -114,8 +115,8 @@ def login_signup():
     if request.method == "POST":
 
         form_type = request.form.get("form_type", "login")
-        email = request.form["email"]
-        password = request.form["password"]
+        email = request.form["email"].strip().lower()
+        password = request.form["password"].strip()
 
         # Signup Mode
         if form_type == "signup":
@@ -130,8 +131,9 @@ def login_signup():
                 "email": email,
                 "password": password
             })
-            # After signup, redirect to login mode
-            return redirect("/")
+            # After signup, redirect to login mode with success message
+            return render_template("login_signup.html", 
+                                   success="Account created successfully! Please Log In.")
 
         # Login Mode
         user = users_collection.find_one({
@@ -144,8 +146,13 @@ def login_signup():
             session["email"] = user["email"]
             return redirect("/dashboard")
 
-        return render_template("login_signup.html",
-        error="Invalid credentials")
+        # If not found, check if the email exists at all to give better feedback
+        if users_collection.find_one({"email": email}):
+            return render_template("login_signup.html", 
+                                   error="Invalid password. Please try again.")
+        else:
+            return render_template("login_signup.html",
+                                   error="Account not found. Please click 'Sign Up' to create one.")
 
     return render_template("login_signup.html")
 
