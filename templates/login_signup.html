@@ -20,6 +20,7 @@
             </div>
 
             <form method="POST" id="auth-form">
+                <input type="hidden" name="form_type" id="form-type" value="login">
                 
                 <div class="input-group" id="name-group" style="display:none;">
                     <label>Full Name</label>
@@ -40,8 +41,17 @@
             </form>
 
             <div style="margin-top: 20px;">
+                {% if success %}
+                <p class="text-success">✅ {{ success }}</p>
+                {% endif %}
+                
                 {% if error %}
-                <p class="text-danger">⚠️ {{ error }}</p>
+                <div class="error-container">
+                    <p class="text-danger">⚠️ {{ error }}</p>
+                    {% if "Account not found" in error %}
+                    <button type="button" class="link-btn" onclick="setMode('signup')">Switch to Sign Up</button>
+                    {% endif %}
+                </div>
                 {% endif %}
             </div>
         </div>
@@ -59,6 +69,7 @@
         function setMode(newMode) {
             mode = newMode;
             
+            const formType = document.getElementById("form-type");
             const nameGroup = document.getElementById("name-group");
             const nameField = document.getElementById("name-field");
             const title = document.getElementById("title");
@@ -69,6 +80,7 @@
             const tabSignup = document.getElementById("tab-signup");
             
             if (mode === 'signup') {
+                formType.value = "signup";
                 nameGroup.style.display = "block";
                 nameField.required = true;
                 title.innerText = "Create Account";
@@ -78,6 +90,7 @@
                 tabSignup.classList.add("active");
                 tabLogin.classList.remove("active");
             } else {
+                formType.value = "login";
                 nameGroup.style.display = "none";
                 nameField.required = false;
                 nameField.value = "";

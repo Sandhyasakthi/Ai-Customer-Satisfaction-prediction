@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tata AI - Dashboard</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 <body>
 
@@ -18,7 +19,7 @@
         </a>
         <div class="nav-links">
             <span class="nav-link" style="color:white; font-weight:700;">Hi, {{ session['user'] }}</span>
-            <a href="/dashboard" class="nav-link active">Dashboard</a>
+            <a href="/dashboard" class="nav-link active"><i class="fas fa-home"></i> Dashboard</a>
             <a href="/logout" class="btn btn-secondary">Sign Out</a>
         </div>
     </nav>
